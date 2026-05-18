@@ -137,15 +137,15 @@ PASSO 7 - TESTAR
 2. Manda "oi"
 3. Ve reacao olhinho (bot recebeu)
 4. Ve "digitando..."
-5. Recebe resposta da Bria em FASE 1 (em ate 10s)
-6. Bria executa em FASE 2
-7. Bria entrega em FASE 3
+5. Recebe resposta da Braia em FASE 1 (em ate 10s)
+6. Braia executa em FASE 2
+7. Braia entrega em FASE 3
 
 Audio:
 1. Manda audio (voice message)
 2. Bot baixa, Whisper transcreve PT-BR
-3. Bria processa
-4. Bria decide responder em texto OU audio
+3. Braia processa
+4. Braia decide responder em texto OU audio
 
 
 ========================================

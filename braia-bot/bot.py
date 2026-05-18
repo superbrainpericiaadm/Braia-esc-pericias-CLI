@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Bria Telegram Bot - External daemon
+Braia Telegram Bot - External daemon
 Independente do Claude Code. NUNCA morre quando Claude reinicia.
 - Recebe msgs via long polling (resilient)
-- Salva em inbox/, notifica Bria via tmux send-keys
+- Salva em inbox/, notifica Braia via tmux send-keys
 - Watch outbox/ e envia respostas via API
 """
 import os, json, time, logging, signal, sys, subprocess, threading
@@ -11,7 +11,7 @@ from pathlib import Path
 from datetime import datetime, timezone
 import requests
 
-BOT_DIR = Path('/Users/briarodrigues/bria-bot')
+BOT_DIR = Path('/Users/braiarodrigues/braia-bot')
 INBOX = BOT_DIR / 'inbox'
 OUTBOX = BOT_DIR / 'outbox'
 SENT = BOT_DIR / 'sent'
@@ -32,8 +32,8 @@ if not TOKEN:
     sys.exit('TELEGRAM_BOT_TOKEN missing')
 
 ALLOWED_USERS = set(env.get('ALLOWED_USERS', '{{TELEGRAM_USER_ID_DONO}}').split(','))
-TMUX_SESSION = env.get('TMUX_SESSION', 'bria')
-TMUX_USER = env.get('TMUX_USER', 'bria')
+TMUX_SESSION = env.get('TMUX_SESSION', 'braia')
+TMUX_USER = env.get('TMUX_USER', 'braia')
 
 for d in (INBOX, OUTBOX, SENT, PROCESSED, STATE, LOGS):
     d.mkdir(parents=True, exist_ok=True)
@@ -59,9 +59,9 @@ typing_until = {}
 typing_lock = threading.Lock()
 running = True
 
-# Debounce: aguarda N segundos sem nova msg antes de injetar pra Bria.
+# Debounce: aguarda N segundos sem nova msg antes de injetar pra Braia.
 # Quando chega nova msg, reseta o timer. Permite o usuario mandar msgs quebradas
-# em sequencia que sao agrupadas como contexto unico antes de chegar na Bria.
+# em sequencia que sao agrupadas como contexto unico antes de chegar na Braia.
 DEBOUNCE_SECONDS = float(env.get('DEBOUNCE_SECONDS', '8'))
 pending_buffer = []  # list of dicts: {msg_id, text, user, chat_id}
 debounce_timer = None
@@ -89,7 +89,7 @@ def flush_pending():
         joined = '\n'.join(i['text'] for i in items)
         text = f'[debounced {len(items)} msgs ids={ids}] {joined}'
         log.info(f'debounce flush: {len(items)} msgs combinadas, last_id={msg_id}')
-    notify_bria(msg_id, text, user)
+    notify_braia(msg_id, text, user)
 
 def enqueue_message(msg_id, text, user, chat_id):
     """Adiciona msg ao buffer e (re)agenda o flush para DEBOUNCE_SECONDS."""
@@ -124,7 +124,7 @@ def get_offset():
 def save_offset(uid):
     (STATE / 'last-update-id.txt').write_text(str(uid))
 
-def notify_bria(msg_id, text, user):
+def notify_braia(msg_id, text, user):
     try:
         # Escapa aspas e quebras de linha pra tmux
         safe = text.replace('\\', '\\\\').replace('"', '\\"').replace('\n', ' ')
@@ -144,9 +144,9 @@ def notify_bria(msg_id, text, user):
             check=False, timeout=5,
             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
         )
-        log.info(f'Bria notificada msg_id={msg_id}')
+        log.info(f'Braia notificada msg_id={msg_id}')
     except Exception as e:
-        log.error(f'notify_bria error: {e}')
+        log.error(f'notify_braia error: {e}')
 
 def react(chat_id, msg_id, emoji='👀'):
     try:
@@ -410,7 +410,7 @@ def outbox_loop():
         time.sleep(2)
 
 if __name__ == '__main__':
-    log.info('=== Bria Telegram Bot iniciando ===')
+    log.info('=== Braia Telegram Bot iniciando ===')
     try:
         r = requests.get(f'{API}/getMe', timeout=10)
         info = r.json().get('result', {})

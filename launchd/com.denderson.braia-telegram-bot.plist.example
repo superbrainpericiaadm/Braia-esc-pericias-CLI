@@ -3,22 +3,22 @@
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>com.{{DONO_SLUG}}.bria-telegram-bot</string>
+    <string>com.{{DONO_SLUG}}.braia-telegram-bot</string>
     <key>ProgramArguments</key>
     <array>
-        <string>/Users/briarodrigues/.pyenv/versions/3.12.8/bin/python3</string>
-        <string>/Users/briarodrigues/bria-bot/bot.py</string>
+        <string>/Users/braiarodrigues/.pyenv/versions/3.12.8/bin/python3</string>
+        <string>/Users/braiarodrigues/braia-bot/bot.py</string>
     </array>
     <key>WorkingDirectory</key>
-    <string>/Users/briarodrigues/bria-bot</string>
+    <string>/Users/braiarodrigues/braia-bot</string>
     <key>RunAtLoad</key>
     <true/>
     <key>KeepAlive</key>
     <true/>
     <key>StandardOutPath</key>
-    <string>/Users/briarodrigues/bria-bot/logs/launchd-stdout.log</string>
+    <string>/Users/braiarodrigues/braia-bot/logs/launchd-stdout.log</string>
     <key>StandardErrorPath</key>
-    <string>/Users/briarodrigues/bria-bot/logs/launchd-stderr.log</string>
+    <string>/Users/braiarodrigues/braia-bot/logs/launchd-stderr.log</string>
     <key>EnvironmentVariables</key>
     <dict>
         <key>PATH</key>
