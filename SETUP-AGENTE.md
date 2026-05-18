@@ -7,7 +7,7 @@
 > **MODO B - Remoto (aluno leigo):** voce esta rodando no PC do aluno (Mac/Win/Linux). O aluno tem so o IP/senha da VPS na mao. Voce vai fazer SSH na VPS e executar tudo remotamente. Le a secao **"INSTRUCOES PRO CLAUDE QUE ESTA EXECUTANDO REMOTAMENTE"** logo abaixo.
 >
 > Sua missao em qualquer modo: seguir esse manual do inicio ao fim, fazendo perguntas claras quando precisar, e entregar:
-> - Agente principal (Naia) rodando 24/7 no tmux
+> - Agente principal (Bria) rodando 24/7 no tmux
 > - 5 subagentes especializados
 > - Bot externo Python (audio bidirecional)
 > - agent-manager.py via PM2 (porta 3600 + Caddy + Cloudflare tunnel)
@@ -114,7 +114,7 @@ Apos systemd subir e bot estar online, peca pro aluno mandar um `/start` no bot 
 
 A v2 ja tinha bot Python externo + Whisper + ElevenLabs. A v3 adiciona:
 
-1. **agent-manager.py** (Python via PM2): gerencia jobs longos sem travar a Naia. Roda na porta 3600 com proxy reverso via Caddy. Acessivel em `https://AGENTE.dominio.com`.
+1. **agent-manager.py** (Python via PM2): gerencia jobs longos sem travar a Bria. Roda na porta 3600 com proxy reverso via Caddy. Acessivel em `https://AGENTE.dominio.com`.
 2. **Suite de subagentes especializados**: paulo-dev, juliana-ops, jonathan-copy, rafael-projetos, davi-sdr.
 3. **Memoria vetorial PostgreSQL + pgvector**: HNSW index pra busca semantica em milhares de mensagens.
 4. **Bot externo robusto**: Restart=always via systemd, polling continuo independente do Claude.
@@ -389,9 +389,9 @@ Cria `/opt/AGENTE/CLAUDE.md` com:
 1. PROTOCOLO DE BOOT (recuperar contexto do banco, ler arquivos persistentes)
 2. Quem e o agente (nome, papel, missao customizado pra esse aluno)
 3. Quem e o dono (info coletada acima)
-4. Hierarquia (Dono manda, Naia orquestra, Juliana coordena, subagentes executam)
-5. REGRA SUPREMA - PROTOCOLO DE CONVERSA 3 FASES (igual ao da Naia)
-6. ARQUITETURA DE ORQUESTRADORA (Naia delega, nao executa)
+4. Hierarquia (Dono manda, Bria orquestra, Juliana coordena, subagentes executam)
+5. REGRA SUPREMA - PROTOCOLO DE CONVERSA 3 FASES (igual ao da Bria)
+6. ARQUITETURA DE ORQUESTRADORA (Bria delega, nao executa)
 7. Lista dos 5 subagentes
 8. Como responder no Telegram (outbox JSON)
 9. Voice ON/OFF (quando usar audio)
@@ -500,7 +500,7 @@ Valida em paralelo:
 # Bot externo vivo
 systemctl is-active AGENTE-bot
 
-# Naia Claude vivo
+# Bria Claude vivo
 systemctl is-active AGENTE
 su - AGENTE -c "tmux ls" | grep AGENTE
 
@@ -531,15 +531,15 @@ Se tudo OK, manda mensagem final pro aluno:
 
 **Logs ao vivo:**
 ```bash
-tail -f /opt/AGENTE/logs/agent.log         # Naia Claude
+tail -f /opt/AGENTE/logs/agent.log         # Bria Claude
 tail -f /opt/AGENTE-bot/logs/bot.log       # Bot Python
 pm2 logs agent-manager                      # agent-manager
-journalctl -u AGENTE -f                     # systemd Naia
+journalctl -u AGENTE -f                     # systemd Bria
 ```
 
 **Restart:**
 ```bash
-systemctl restart AGENTE          # restart Naia
+systemctl restart AGENTE          # restart Bria
 systemctl restart AGENTE-bot      # restart bot
 pm2 restart agent-manager         # restart manager
 ```
