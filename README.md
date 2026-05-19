@@ -32,7 +32,7 @@ Instala um agente Claude Code conectado ao Telegram em qualquer VPS Ubuntu 22+ o
 
 **v3 (abril 2026)** - upgrade massivo da v2:
 - agent-manager.py via PM2 (porta 3600 + Caddy + Cloudflare tunnel)
-- 5 subagentes especializados (paulo-dev, juliana-ops, jonathan-copy, rafael-projetos, davi-sdr)
+- 4 subagentes especializados (paulo-dev, juliana-ops, isaura, angelica)
 - Audio bidirecional (Whisper entrada + ElevenLabs saida)
 - Memoria vetorial PostgreSQL + pgvector
 
@@ -85,7 +85,7 @@ O Claude pergunta nome do agente, dono, tokens, configura tudo e entrega o agent
                                                           |
                                   +---------+---------+---+---+
                                   v         v         v       v
-                              paulo-dev juliana-ops jonathan rafael davi-sdr
+                              paulo-dev juliana-ops  isaura angelica
 ```
 
 5 camadas de resiliencia:
@@ -99,7 +99,7 @@ O Claude pergunta nome do agente, dono, tokens, configura tudo e entrega o agent
 - Bot externo Python sempre vivo (independente do Claude Code)
 - Audio entrada (Whisper PT-BR) e saida (ElevenLabs TTS) bidirecional
 - "Digitando..." automatico durante todo processamento
-- 5 subagentes especializados (paulo-dev, juliana-ops, jonathan-copy, rafael-projetos, davi-sdr)
+- 4 subagentes especializados (paulo-dev, juliana-ops, isaura, angelica)
 - Memoria vetorial PostgreSQL + pgvector (HNSW index)
 - agent-manager.py via PM2 (porta 3600 + Caddy proxy HTTPS)
 - Healthcheck a cada 2 min com auto-alerta
